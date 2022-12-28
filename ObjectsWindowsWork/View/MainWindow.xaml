@@ -1,0 +1,93 @@
+﻿<Window x:Class="ProductsWork.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductsWork"
+        mc:Ignorable="d"
+        Title="Работа с продуктами" Height="500" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFE3FDFD">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Column="2" Grid.Row="3" TextWrapping="Wrap" Text="ПРИЕМ" VerticalAlignment="Center" Width="auto" FontFamily="Arial" TextAlignment="Center" />
+        <TextBlock Grid.Column="6" Grid.Row="3" TextWrapping="Wrap" Text="ОТГРУЗКА" VerticalAlignment="Center" Width="auto" FontFamily="Arial" TextAlignment="Center" />
+
+        <DataGrid x:Name="DGridAdd" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding UpdateReceptionGrid}" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="4" Background="#FFA6E3E9" FontWeight="Bold">
+            
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment"
+                 Value="Center" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}" Width="6*" />
+                <DataGridTextColumn Header="Количество" Binding="{Binding Reception}" Width="4*" />
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+
+        <DataGrid x:Name="DGridRemove" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding UpdateShipmentGrid}" Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="4" Background="#FFA6E3E9" FontWeight="Bold" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="True">
+            
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment"
+                 Value="Center" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="Наименование" Binding="{Binding Name}" Width="6*" />
+                <DataGridTextColumn Header="Количество" Binding="{Binding Shipment}" Width="4*" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button x:Name="btnClear" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" Content="Очистить" Background="#FF71C9CE" BorderBrush="#FF4E4949" Command="{Binding ClearCommand}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="Поле ввода данных для приёма" VerticalAlignment="Center" Width="auto" FontFamily="Arial" TextAlignment="Center" />
+        <TextBlock Grid.ColumnSpan="3" Grid.Column="5" Grid.Row="1" TextWrapping="Wrap" Text="Поле ввода данных для отгрузки" VerticalAlignment="Center" Width="auto" FontFamily="Arial" TextAlignment="Center" />
+        
+        <TextBox x:Name="AddRec" AcceptsReturn="False" Text="{Binding Reception, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" Background="#FFCBF1F5" BorderBrush="Black" UndoLimit="100" TextAlignment="Justify" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" >
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding GetReceptionInput}" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+        <TextBox x:Name="AddShip" AcceptsReturn="False" Text="{Binding Shipment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="6" Grid.Row="2" Background="#FFCBF1F5" BorderBrush="Black" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding GetShipmentInput}" />
+            </TextBox.InputBindings>
+        </TextBox>
+
+    </Grid>
+</Window>
